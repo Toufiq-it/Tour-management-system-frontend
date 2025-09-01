@@ -29,7 +29,7 @@ export function AddTourModal() {
     <Dialog>
       <form>
         <DialogTrigger asChild>
-          <Button variant="outline">Add Tour Type</Button>
+          <Button>Add Tour Type</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
