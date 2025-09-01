@@ -11,6 +11,6 @@ export const baseApi = createApi({
     //      // set cookies
     //     credentials: "include",
     //   }),
-    tagTypes: ["USER"],
+    tagTypes: ["USER", "TOUR"],
     endpoints: () => ({})
 })
