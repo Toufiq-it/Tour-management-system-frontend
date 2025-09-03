@@ -22,7 +22,7 @@ export default function TourDetails() {
           <h1 className="text-3xl font-bold mb-2">{tourData?.title}</h1>
           <div className="flex gap-4 text-gray-600 mb-4">
             <span>📍 {tourData?.location}</span>
-            <span>💰 From ${tourData?.costFrom}</span>
+            <span>💰 Price ৳{tourData?.costFrom}</span>
             <span>👥 Max {tourData?.maxGuest} guests</span>
           </div>
         </div>

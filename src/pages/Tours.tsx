@@ -4,9 +4,9 @@ import { Link } from "react-router";
 
 export default function Tours() {
 
-  const {data} = useGetAllToursQuery(undefined);
-  console.log("inside all tours",data);
-  
+  const { data } = useGetAllToursQuery(undefined);
+  console.log("inside all tours", data);
+
 
   return (
     <div className="container mx-auto px-5 py-8 grid grid-cols-12 gap-5">
@@ -29,8 +29,11 @@ export default function Tours() {
               <p className="text-muted-foreground mb-3">{item.description}</p>
 
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xl font-bold text-primary">
-                  From ৳{item.costFrom}
+                <span className="text-xl font-bold">
+                  Cost: <span className="text-2xl">৳</span>
+                  <span className="text-primary">
+                    {item.costFrom}
+                  </span>
                 </span>
                 <span className="text-sm text-muted-foreground">
                   Max {item.maxGuest} guests
