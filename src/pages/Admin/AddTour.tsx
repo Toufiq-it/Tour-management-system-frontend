@@ -22,22 +22,22 @@ import z from "zod";
 
 // Zob schema
 const formSchema = z.object({
-    title: z.string().min(1, "Title is required"),
-    description: z.string().min(1, "Description is required"),
-    location: z.string().min(1, "Location is required"),
-    costFrom: z.string().min(1, "Cost is required"),
-    startDate: z.date({ message: "Start date is required" }),
-    endDate: z.date({ message: "End date is required" }),
-    departureLocation: z.string().min(1, "Departure location is required"),
-    arrivalLocation: z.string().min(1, "Arrival location is required"),
-    included: z.array(z.object({ value: z.string() })),
-    excluded: z.array(z.object({ value: z.string() })),
-    amenities: z.array(z.object({ value: z.string() })),
-    tourPlan: z.array(z.object({ value: z.string() })),
-    maxGuest: z.string().min(1, "Max guest is required"),
-    minAge: z.string().min(1, "Minimum age is required"),
-    division: z.string().min(1, "Division is required"),
-    tourType: z.string().min(1, "Tour type is required"),
+  title: z.string().min(1, "Title is required"),
+  description: z.string().min(1, "Description is required"),
+  location: z.string().min(1, "Location is required"),
+  costFrom: z.string().min(1, "Cost is required"),
+  startDate: z.date({ message: "Start date is required" }),
+  endDate: z.date({ message: "End date is required" }),
+  departureLocation: z.string().min(1, "Departure location is required"),
+  arrivalLocation: z.string().min(1, "Arrival location is required"),
+  included: z.array(z.object({ value: z.string() })),
+  excluded: z.array(z.object({ value: z.string() })),
+  amenities: z.array(z.object({ value: z.string() })),
+  tourPlan: z.array(z.object({ value: z.string() })),
+  maxGuest: z.string().min(1, "Max guest is required"),
+  minAge: z.string().min(1, "Minimum age is required"),
+  division: z.string().min(1, "Division is required"),
+  tourType: z.string().min(1, "Tour type is required"),
 });
 
 export default function AddTour() {
@@ -58,45 +58,43 @@ export default function AddTour() {
 
 
   const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            title: "Cox's Bazar Beach Adventure",
-            description:
-                "Experience the world's longest natural sea beach with golden sandy shores, crystal clear waters, and breathtaking sunsets. Enjoy beach activities, local seafood, and explore nearby attractions including Himchari National Park and Inani Beach.",
-            location: "Cox's Bazar",
-            costFrom: "15000",
-            startDate: new Date(),
-            endDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days later
-            departureLocation: "Dhaka",
-            arrivalLocation: "Cox's Bazar",
-            included: [
-                { value: "Accommodation for 2 nights" },
-                { value: "All meals (breakfast, lunch, dinner)" },
-                { value: "Transportation (AC bus)" },
-                { value: "Professional tour guide" },
-            ],
-            excluded: [
-                { value: "Personal expenses" },
-                { value: "Extra activities not mentioned" },
-                { value: "Travel insurance" },
-            ],
-            amenities: [
-                { value: "Air-conditioned rooms" },
-                { value: "Free WiFi" },
-                { value: "Swimming pool access" },
-                { value: "Beach access" },
-            ],
-            tourPlan: [
-                { value: "Day 1: Arrival and beach exploration" },
-                { value: "Day 2: Himchari National Park visit" },
-                { value: "Day 3: Inani Beach and departure" },
-            ],
-            maxGuest: "25",
-            minAge: "5",
-            division: "",
-            tourType: "",
-        },
-    });
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: "Kuakata Sea Beach Sunrise & Sunset Tour",
+      description:
+        "Visit Kuakata, the 'Daughter of the Sea', and enjoy the rare beauty of both sunrise and sunset at the same beach. Explore Buddhist temples and local fishing culture.",
+      location: "Kuakata",
+      costFrom: "13000",
+      startDate: new Date(),
+      endDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+      departureLocation: "Barishal",
+      arrivalLocation: "Kuakata",
+      included: [
+        { value: "Hotel accommodation" },
+        { value: "Meals" },
+        { value: "Transport (bus)" },
+        { value: "Local guide" },
+      ],
+      excluded: [
+        { value: "Personal expenses" },
+        { value: "Travel insurance" },
+      ],
+      amenities: [
+        { value: "Sea-view rooms" },
+        { value: "Fresh seafood meals" },
+        { value: "Cultural visits" },
+      ],
+      tourPlan: [
+        { value: "Day 1: Arrival and sunset view" },
+        { value: "Day 2: Sunrise and Buddhist temple visit" },
+        { value: "Day 3: Explore local fishing villages and return" },
+      ],
+      maxGuest: "25",
+      minAge: "5",
+      division: "",
+      tourType: "",
+    },
+  });
 
   const {
     fields: includedFields,
@@ -143,29 +141,29 @@ export default function AddTour() {
     }
 
     const tourData = {
-            ...data,
-            costFrom: Number(data.costFrom),
-            minAge: Number(data.minAge),
-            maxGuest: Number(data.maxGuest),
-            startDate: formatISO(data.startDate),
-            endDate: formatISO(data.endDate),
-            included:
-                data.included[0].value === ""
-                    ? []
-                    : data.included.map((item: { value: string }) => item.value),
-            excluded:
-                data.included[0].value === ""
-                    ? []
-                    : data.excluded.map((item: { value: string }) => item.value),
-            amenities:
-                data.amenities[0].value === ""
-                    ? []
-                    : data.amenities.map((item: { value: string }) => item.value),
-            tourPlan:
-                data.tourPlan[0].value === ""
-                    ? []
-                    : data.tourPlan.map((item: { value: string }) => item.value),
-        };
+      ...data,
+      costFrom: Number(data.costFrom),
+      minAge: Number(data.minAge),
+      maxGuest: Number(data.maxGuest),
+      startDate: formatISO(data.startDate),
+      endDate: formatISO(data.endDate),
+      included:
+        data.included[0].value === ""
+          ? []
+          : data.included.map((item: { value: string }) => item.value),
+      excluded:
+        data.included[0].value === ""
+          ? []
+          : data.excluded.map((item: { value: string }) => item.value),
+      amenities:
+        data.amenities[0].value === ""
+          ? []
+          : data.amenities.map((item: { value: string }) => item.value),
+      tourPlan:
+        data.tourPlan[0].value === ""
+          ? []
+          : data.tourPlan.map((item: { value: string }) => item.value),
+    };
 
 
     const formData = new FormData();
