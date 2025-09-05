@@ -14,7 +14,12 @@ export function LoginForm({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const navigate = useNavigate();
-  const form = useForm();
+  const form = useForm({
+    defaultValues:{
+      email: "ittoufikit@gmail.com",
+      password: "12345678"
+    }
+  });
   const [login] = useLoginMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {

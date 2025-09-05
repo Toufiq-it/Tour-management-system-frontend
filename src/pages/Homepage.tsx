@@ -4,6 +4,9 @@ export default function Homepage() {
   return (
     <div>
       <HeroSection />
+      <div className="container mx-auto">
+        {/* <DivisionView items={[]} /> */}
+      </div>
     </div>
   );
 }

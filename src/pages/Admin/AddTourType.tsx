@@ -2,29 +2,43 @@ import { DeleteConfirmation } from "@/components/DeleteConfirmation";
 import { AddTourModal } from "@/components/modules/Admin/TourType/AddTourModal";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination"
 import { useGetTourTypeQuery, useRemoveTourTypeMutation } from "@/redux/features/Tour/tour.api";
 import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { useState } from "react";
 
 export default function AddTourType() {
-    const { data } = useGetTourTypeQuery(undefined);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [limit, setLimit] = useState(10);
+    // console.log(currentPage);
+
+
+    const { data } = useGetTourTypeQuery({ page: currentPage, limit });
     const [removeTourType] = useRemoveTourTypeMutation();
 
     const handleRemoveTourType = async (tourId: string) => {
         const toastId = toast.loading("Removing...");
-
         try {
             const res = await removeTourType(tourId).unwrap();
             console.log(res);
             if (res.success) {
                 toast.success("Tour Type Removed", { id: toastId })
             }
-
         } catch (err) {
             console.error(err);
         }
+    };
 
-    }
+    const totalPage = data?.meta?.totalPage || 1;
 
     return (
         <div className="w-full max-w-7xl mx-auto px-5">
@@ -54,6 +68,46 @@ export default function AddTourType() {
                         ))}
                     </TableBody>
                 </Table>
+            </div>
+            <div className="p-5">
+                {totalPage > 1 && (
+                    <Pagination>
+                        <PaginationContent>
+                            <PaginationItem>
+                                <PaginationPrevious
+                                    onClick={() => setCurrentPage((prev) => prev - 1)}
+                                    className={
+                                        currentPage === 1
+                                            ? "pointer-events-none opacity-50"
+                                            : "cursor-pointer"
+                                    }
+                                />
+                            </PaginationItem>
+                            {Array.from({ length: totalPage }, (_, index) => index + 1).map(
+                                (page) => (
+                                    <PaginationItem
+                                        key={page}
+                                        onClick={() => setCurrentPage(page)}
+                                    >
+                                        <PaginationLink isActive={currentPage === page}>
+                                            {page}
+                                        </PaginationLink>
+                                    </PaginationItem>
+                                )
+                            )}
+                            <PaginationItem>
+                                <PaginationNext
+                                    onClick={() => setCurrentPage((prev) => prev + 1)}
+                                    className={
+                                        currentPage === totalPage
+                                            ? "pointer-events-none opacity-50"
+                                            : "cursor-pointer"
+                                    }
+                                />
+                            </PaginationItem>
+                        </PaginationContent>
+                    </Pagination>
+                )}
             </div>
         </div>
     );
